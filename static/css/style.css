@@ -1,0 +1,241 @@
+*
+{
+    padding: 0;
+    margin: 0;
+
+    font-family: "Nunito Sans", sans-serif;
+}
+a
+{
+    text-decoration: none;
+}
+.content
+{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    width: 100%;
+}
+.navigation
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    
+    padding: 15px 50px;
+
+    background-color: white;
+
+    width: 100%;
+
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.05));
+}
+.navigation h2
+{
+    margin: 0 50px;
+    font-weight: 900;
+}
+.navigation div
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 30%;
+}
+.navigation div a
+{
+    color: black;
+    font-weight: 500;
+
+    opacity: 60%;
+
+    transition: 90ms;
+}
+.navigation div a:hover
+{
+    opacity: 100%;
+}
+.banner
+{
+    width: 100%;
+
+    background-size: 120%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+}
+.banner .content
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+    grid-template-areas:
+        "ho em em"
+        "po po en";
+
+    width: 90%;
+    height: 90%;
+    padding: 5% 5%;
+
+    backdrop-filter: blur(5px);
+}
+.banner .content h1
+{
+    font-weight: 900;
+    line-height: 24px;
+
+    grid-area: ho;
+    text-transform: uppercase;
+}
+.banner .content p
+{
+    grid-area: po;
+    text-align: right;
+    text-transform: uppercase;
+}
+.form-auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 25%;
+    margin: 30px;
+    padding: 25px 0;
+
+    background-color: white;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.05));
+}
+.form-auth p label
+{
+    display: none;
+}
+.form-auth p label[for='id_agreement']
+{
+    display: block;
+}
+.form-auth p input[type='checkbox']
+{
+    width: 25px;!important;
+}
+.form-auth p
+{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    width: 90%;
+    margin: 0 5%;
+}
+.form-auth p select
+{
+    width: 100%;
+
+    margin: 5px 0;
+    padding: 15px 20px 15px 20px;
+
+    font-size: 16px;
+
+    background-color: #f6f6f6;
+
+    border: none;
+    border-radius: 10px;
+}
+.form-auth p select option
+{
+    padding: 15px 0;
+}
+.form-auth p input
+{
+    width: 100%;
+
+    margin: 5px 0;
+    padding: 15px 20px;
+
+    font-size: 16px;
+
+    background-color: #f6f6f6;
+
+    border: none;
+    border-radius: 10px;
+}
+.form-auth input[type='submit']
+{
+    background: #1f1f1f radial-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), black);
+    border: none;
+    border-radius: 10px;
+
+    margin: 10px 0 0 0;
+    padding: 10px 50px;
+
+    font-size: 16px;
+
+    color: white;
+    transition: 100ms;
+}
+.form-auth input[type='submit']:hover
+{
+    filter: brightness(150%);
+}
+.profile
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 230px);
+    grid-template-areas:
+        "img r1w r1w r1w"
+;
+
+    grid-column-gap: 25px;
+
+    width: 60%;
+
+    margin: 40px;
+
+    border: 1px solid rgba(175, 175, 175, 0.36);
+    background-color: white;
+}
+.profile .profile-image
+{
+    grid-area: img;
+
+    background-color: rgba(175, 175, 175, 0.36);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 110%;
+}
+.profile .profile-info
+{
+    grid-area: r1w;
+
+    width: 100%;
+    padding: 15px 0;
+}
+.profile .profile-info p
+{
+    padding: 5px 0;
+}
+.profile .profile-info a
+{
+    margin: 5px 0;
+}
+.profile .profile-info .user_type
+{
+    margin-top: 50px;
+}
+.profile .profile-info .user_type span
+{
+    font-weight: 700;
+}
+.user_reviews
+{
+    width: 100%;
+
+    text-align: center;
+}

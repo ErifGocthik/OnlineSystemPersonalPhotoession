@@ -1,0 +1,17 @@
+{% extends 'root.html' %}
+{% load static %}
+{% block content %}
+    <div class="profile">
+        <div class="profile-image" style="background-image: url('{% static 'images/default_profile_image.png' %}')"></div>
+        <div class="profile-info">
+            <h2 class="profile-username">{{ user.username }}</h2>
+            <p class="profile-name">Имя: <span>{{ user.name }}</span></p>
+            <p class="profile-surname">Фамилия: <span>{{ user.surname }}</span></p>
+            <a href="mailto:{{ user.email }}">Электронная почта: <span>{{ user.email }}</span></a>
+            <p class="user_type">Вы: <span>{{ user.get_user_type_display }}</span></p>
+        </div>
+    </div>
+    <div class="user_reviews">
+        <h1>Ваши запросы</h1>
+    </div>
+{% endblock %}

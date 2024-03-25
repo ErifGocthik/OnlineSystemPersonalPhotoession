@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Lightpictures</title>
+</head>
+<body class="content">
+    <div class="navigation">
+        <div>
+            <a href="#">Главная</a>
+            <a href="#">Фотографы</a>
+            <a href="#">Фотографии</a>
+        </div>
+        <h2><a href="{% url 'main:main' %}" style="color: black">LIGHTPIC</a></h2>
+        <div>
+            {% if user.is_active %}
+                <a href="{% url 'auth:profile' pk=user.pk %}">Личный кабинет( {{ user.username }} )</a>
+                <a href="{% url 'auth:logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'auth:login' %}" style="margin-left: 150px">Войти</a>
+            {% endif %}
+            <a href="{% url 'auth:authorization' %}">Зарегиcтрироваться</a>
+        </div>
+    </div>
+{% block content %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+{% extends 'root.html' %}
+{% block content %}
+    <form action="." enctype="multipart/form-data" method="post" class="form-auth">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+{% endblock %}
