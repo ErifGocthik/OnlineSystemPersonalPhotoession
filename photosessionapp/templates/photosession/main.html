@@ -20,4 +20,19 @@
                 так и внешне зависимых концептуальных решений.</p>
         </div>
     </div>
+    <div class="photographer">
+        <h1>Наши Фотографы</h1>
+        <div class="photographer-cards">
+            {% for pg in photographer %}
+                <div class="gr-border">
+                    <div class="photographer-card">
+                        <div class="ph-image" style="background-image:url('{{ pg.photo.url }}')"></div>
+                        <h2>{{ pg.user_id.name }} {{ pg.user_id.surname }}</h2>
+                        <p>Техника: <span>{{ pg.tech }}</span></p>
+                        <p>{{ pg.bio|truncatewords_html:17 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

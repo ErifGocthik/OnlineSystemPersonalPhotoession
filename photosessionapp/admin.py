@@ -7,13 +7,12 @@ from photosessionapp.models import Photographer, Review, CustomUser
 @admin.register(Photographer)
 class PhotographerAdmin(admin.ModelAdmin):
     exclude = ['id']
-    list_display = ['clearUsername', 'email', 'name', 'surname']
-    list_filter = ['name']
+    list_display = ['clearUsername']
     search_fields = ['clearUsername']
 
 
 @admin.register(CustomUser)
-class UserAdmin(admin.ModelAdmin):
+class CustomUserAdmin(admin.ModelAdmin):
     exclude = ['id']
     list_display = ['username', 'name', 'surname', 'user_type']
     list_filter = ['user_type']

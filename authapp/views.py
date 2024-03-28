@@ -2,17 +2,31 @@ from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views import View
+from django.views.generic import CreateView, DetailView, ListView
 
-from authapp.forms import CustomUserCreateForm
-from photosessionapp.models import CustomUser
+from authapp.forms import CustomUserCreateForm, PhotographerCreateForm
+from photosessionapp.models import CustomUser, Photographer
 
+
+def set_photographer(user):
+    if user.user_type == '2':
+        customuser = CustomUser.object.get(id=user.pk)
+        photo = Photographer.objects.create(user_id=customuser)
+        photo.save()
+    return redirect(reverse_lazy('auth:login'))
 
 class UserCreationView(CreateView):
     model = CustomUser
     template_name = 'sign-up.html'
     form_class = CustomUserCreateForm
 
+    def get_context_data(self, **kwargs):
+        form = self.form_class()
+        return {'form': form}
+
+    def get(self, request, *args, **kwargs):
+        return render(self.request, self.template_name, self.get_context_data())
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -24,6 +38,7 @@ class UserCreationView(CreateView):
         user = form.save(commit=False)
         user.password = make_password(user.password)
         user.save()
+        set_photographer(user)
         return redirect(reverse_lazy('auth:login'))
 
 
@@ -33,9 +48,8 @@ class UserView(DetailView):
     context_object_name = 'user'
 
     def get_context_data(self, pk: int):
-        this_user = get_object_or_404(CustomUser, pk=pk)
         profile_user = self.request.user.pk
-        return {'this_user': this_user, 'profile_user': profile_user}
+        return {'profile_user': profile_user}
 
     def get(self, request, pk: int, *args, **kwargs):
         if request.user.pk != self.get_context_data(pk).get('profile_user'):

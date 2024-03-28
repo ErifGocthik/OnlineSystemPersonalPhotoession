@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import TextInput
 
-from photosessionapp.models import CustomUser
+from photosessionapp.models import CustomUser, Photographer
 
 
 class CustomUserCreateForm(forms.ModelForm, forms.Form):
@@ -18,4 +18,8 @@ class CustomUserCreateForm(forms.ModelForm, forms.Form):
         }
         fields = ['username', 'name', 'surname', 'email', 'user_type', 'password', 'password_repeat', 'agreement']
 
-# class LoginUserView(forms.Form):
+
+class PhotographerCreateForm(forms.ModelForm):
+    class Meta:
+        model = Photographer
+        fields = ['user_id', 'photo', 'bio', 'tech']
