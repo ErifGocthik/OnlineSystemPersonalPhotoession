@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import CreateView, DetailView, ListView
 
 from authapp.forms import CustomUserCreateForm, PhotographerCreateForm
-from photosessionapp.models import CustomUser, Photographer
+from photosessionapp.models import CustomUser, Photographer, Reservation
 
 
 def set_photographer(user):
@@ -49,7 +49,8 @@ class UserView(DetailView):
 
     def get_context_data(self, pk: int):
         profile_user = self.request.user.pk
-        return {'profile_user': profile_user}
+        reservation = Reservation.objects.filter(photograph_id__user_id=self.request.user)
+        return {'profile_user': profile_user, 'reservation': reservation}
 
     def get(self, request, pk: int, *args, **kwargs):
         if request.user.pk != self.get_context_data(pk).get('profile_user'):

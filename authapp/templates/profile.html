@@ -13,5 +13,31 @@
     </div>
     <div class="user_reviews">
         <h1>Ваши запросы</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Номер телефона</th>
+                    <th scope="col">Тип фотосессии</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserv in reservation %}
+                    <tr>
+                        <th scope="row">{{ reserv.pk }}</th>
+                        <td>{{ reserv.description }}</td>
+                        <td>
+                            {% if reserv.phone_number == None %}
+                                <p>Не указан</p>
+                            {% else %}
+                                <p>{{ reserv.phone_number }}</p>
+                            {% endif %}
+                        </td>
+                        <td>{{ reserv.get_photosession_type_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

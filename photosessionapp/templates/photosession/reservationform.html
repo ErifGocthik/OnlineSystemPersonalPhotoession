@@ -1,0 +1,14 @@
+{% extends 'root.html' %}
+{% load static %}
+{% block js %}
+{#    <script src="{% static 'js/notification.js' %}"></script>#}
+{% endblock %}
+{% block content %}
+    <h2 class="notification">{{ notification }}</h2>
+    <form action="." method="post" enctype="multipart/form-data" class="form-reservation">
+        <h3>Поля со звездочкой * обязательные</h3>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="ОК" class="reservation-btn">
+    </form>
+{% endblock %}

@@ -26,13 +26,20 @@
             {% for pg in photographer %}
                 <div class="gr-border">
                     <div class="photographer-card">
-                        <div class="ph-image" style="background-image:url('{{ pg.photo.url }}')"></div>
+                        <div class="ph-image" style="background-image:radial-gradient(rgba(255,255,255,0), rgba(255,255,255,0), #000000), url('{{ pg.photo.url }}') "></div>
                         <h2>{{ pg.user_id.name }} {{ pg.user_id.surname }}</h2>
                         <p>Техника: <span>{{ pg.tech }}</span></p>
                         <p>{{ pg.bio|truncatewords_html:17 }}</p>
                     </div>
                 </div>
             {% endfor %}
+        </div>
+    </div>
+    <div class="review" style="background-image: linear-gradient(rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.25)), url('{% static 'images/background_02.png' %}')">
+        <h1>Закажите свою собственную фотосессию!</h1>
+        <div class="card">
+            <h2>Вы можете выбрать <span>тип фотосессии</span> и <span>фотографа</span> по вашему желанию</h2>
+            <a href="{% url 'main:reservation' %}">Сделать заказ</a>
         </div>
     </div>
 {% endblock %}

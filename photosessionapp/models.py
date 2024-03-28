@@ -71,6 +71,7 @@ class CustomUser(AbstractUser):
 
         return check_password(raw_password, self.password, setter)
 
+
 class Photographer(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=False, verbose_name='Пользователь')
     photo = models.ImageField(blank=True, null=True, upload_to='%Y/%m/%d/', default='default/default_profile_image.png', verbose_name='Фотография')
@@ -79,6 +80,10 @@ class Photographer(models.Model):
 
     def clearUsername(self):
         return self.user_id.username
+
+    def __str__(self):
+        return f'{self.user_id.name} {self.user_id.surname}'
+
 
 class Review(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=False, verbose_name='Пользователь')
@@ -106,8 +111,14 @@ photosession_type = (('1', 'Портрет.'),
 
 
 class Reservation(models.Model):
-    email = models.CharField(max_length=256, blank=False, null=False, verbose_name='Электронная почта')
-    description = models.TextField(blank=False, null=True, verbose_name='Описание')
-    phone_number = models.CharField(max_length=32, blank=True, null=True, validators=[RegexValidator('/^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d{3}?\d{3}$/')])
-    photosession_type = models.CharField(max_length=64, blank=False, null=False, choices=(photosession_type), default='1', verbose_name='Тип фотосессии')
+    email = models.CharField(max_length=256, blank=False, null=False, verbose_name='* Электронная почта')
+    description = models.TextField(blank=False, null=True, verbose_name='* Описание')
+    phone_number = models.CharField(max_length=32, blank=True, null=True, validators=[RegexValidator('/^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d{3}?\d{3}$/')], verbose_name='Телефон')
+    photograph_id = models.ForeignKey(Photographer, on_delete=models.CASCADE, blank=False, verbose_name='* Фотограф')
+    photosession_type = models.CharField(max_length=64, blank=False, null=False, choices=(photosession_type), default='1', verbose_name='* Тип фотосессии')
+
     example = models.ImageField(blank=True, null=True, verbose_name='Примеры')
+
+    def EmailUser(self):
+        user = CustomUser.object.get(email=self.email)
+        return user.username

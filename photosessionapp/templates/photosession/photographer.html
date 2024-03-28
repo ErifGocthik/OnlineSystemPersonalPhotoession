@@ -1,4 +1,10 @@
 {% extends 'root.html' %}
 {% block content %}
-    {{ count }}
+    <div class="photographers">
+        {% for photograph in photographer %}
+            <div class="photo">
+                <div class="photo-img" style="background-image: url({{ photograph.photo.url }})"></div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

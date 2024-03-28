@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from photosessionapp.models import Photographer, Review, CustomUser
+from photosessionapp.models import Photographer, Review, CustomUser, Reservation
 
 
 @admin.register(Photographer)
@@ -25,3 +25,9 @@ class Review(admin.ModelAdmin):
     list_display = ['Username', 'text_content']
     list_filter = ['likes']
     search_fields = ['text_content']
+
+@admin.register(Reservation)
+class Reservation(admin.ModelAdmin):
+    exclude = ['id']
+    list_display = ['EmailUser', 'phone_number', 'photosession_type']
+    list_filter = ['photosession_type']
