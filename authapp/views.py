@@ -49,13 +49,15 @@ class UserView(DetailView):
 
     def get_context_data(self, pk: int):
         profile_user = self.request.user.pk
-        reservation = Reservation.objects.filter(photograph_id__user_id=self.request.user)
+        reservation = Reservation.objects.filter(photograph_id__user_id =self.request.user)
         return {'profile_user': profile_user, 'reservation': reservation}
 
     def get(self, request, pk: int, *args, **kwargs):
         if request.user.pk != self.get_context_data(pk).get('profile_user'):
             return redirect(reverse_lazy('main:main'))
         return render(self.request, self.template_name, self.get_context_data(pk))
+
+    # def post(self):
 
 def user_logout(request):
     if request.user:

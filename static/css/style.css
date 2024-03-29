@@ -509,7 +509,7 @@ a
 }
 .user_reviews table
 {
-    width: 60%;
+    width: 75%;
 
     border-radius: 15px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
@@ -533,8 +533,96 @@ a
 {
     padding: 5px;
 }
+.user_reviews table tbody .tr-hover
+{
+    transition: 70ms;
+}
 .user_reviews table, thead, tbody tr, tbody th, tbody td
 {
     border-collapse: collapse;
     border: 1px solid rgb(0, 0, 0);
+}
+.modal-background
+{
+    position: absolute;
+
+    display: none;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    transition: 160ms;
+
+    backdrop-filter: brightness(0.5) blur(15px);
+}
+.modal-window
+{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+
+    position: absolute;
+
+    width: 40%;
+    height: 500px;
+
+    padding: 20px 30px;
+
+    top: 100px;
+
+    border-radius: 20px;
+
+    background-color: white;
+}
+.modal-window .btn-close
+{
+    position: absolute;
+
+    top: -6px;
+    right: -6px;
+
+    padding: 0 12px 2px 12px;
+    border-radius: 50%;
+
+    font-size: 24px;
+
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
+    background-color: white;
+}
+.modal-window label[for='answer']
+{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.modal-window p textarea
+{
+    padding: 10px 20px;
+    margin: 0;
+}
+.modal-window p
+{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+
+    width: 100%;
+}
+.modal-window input
+{
+    background: #1f1f1f radial-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), black);
+    border: none;
+    border-radius: 10px;
+
+    margin: 10px 0 0 15px;
+    padding: 10px 50px;
+
+    font-size: 16px;
+
+    color: white;
+    transition: 100ms;
 }

@@ -1,8 +1,11 @@
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 from photosessionapp.forms import ReservationCreateForm
 from photosessionapp.models import Photographer, CustomUser, Review, Reservation
@@ -68,7 +71,6 @@ class ReservationCreateView(CreateView):
         return redirect(reverse_lazy('main:reservation'))
 
     def form_invalid(self, form):
-        self.get_context_data(notification='Электронная почта не существует')
         return self.render_to_response(self.get_context_data(form=form))
 
     def email_is_valid(self, email):
@@ -76,3 +78,25 @@ class ReservationCreateView(CreateView):
         if self_email == email:
             return True
         return False
+
+
+class GetAnswer(DetailView):
+    model = Reservation
+    template_name = 'photosession/mailAnswer.html'
+    context_object_name = 'reservation'
+
+    def get_context_data(self, **kwargs):
+        model = get_object_or_404(Reservation, pk=self.kwargs['pk'])
+        context = {
+            'email': model.email
+        }
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return JsonResponse(self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+        user = CustomUser.objects.filter(email=self.get_context_data().get('email'))
+        headers = {'Для': '{} <{}>'.format(user.model.username, user.model.email)}
+        send_mail('Ответ на заявку', self.request.POST.get('answer'), settings.EMAIL_HOST_USER, [self.get_context_data().get('email')], headers)
+        return JsonResponse(self.get_context_data())

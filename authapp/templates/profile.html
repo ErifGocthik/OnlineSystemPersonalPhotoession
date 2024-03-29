@@ -1,5 +1,8 @@
 {% extends 'root.html' %}
 {% load static %}
+{% block js %}
+    <script src="{% static 'js/tableHref.js' %}"></script>
+{% endblock %}
 {% block content %}
     <div class="profile">
         <div class="profile-image" style="background-image: url('{% static 'images/default_profile_image.png' %}')"></div>
@@ -19,25 +22,41 @@
                     <th scope="col">ID</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Номер телефона</th>
+                    <th scope="col">Электронная почта</th>
                     <th scope="col">Тип фотосессии</th>
                 </tr>
             </thead>
             <tbody>
                 {% for reserv in reservation %}
-                    <tr>
+                    <tr class="tr-hover id-{{ reserv.pk }}">
                         <th scope="row">{{ reserv.pk }}</th>
                         <td>{{ reserv.description }}</td>
                         <td>
                             {% if reserv.phone_number == None %}
-                                <p>Не указан</p>
+                                <p style="opacity: 50%">Не указан</p>
                             {% else %}
                                 <p>{{ reserv.phone_number }}</p>
                             {% endif %}
+                        </td>
+                        <td class="email">
+                            {{ reserv.email }}
                         </td>
                         <td>{{ reserv.get_photosession_type_display }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="modal-background">
+        <div class="modal-window">
+            <form action="." method="post">
+                <p>
+                    <label for="answer">Ответ для: <span class="email">Почта</span></label>
+                    <textarea placeholder="Абасновынный ответ" type="text" name="answer" id="answer" cols="80" rows="20"></textarea>
+                </p>
+                <input class="btn-input" type="submit" value="ok">
+            </form>
+            <div class="btn-close">ⅹ</div>
+        </div>
     </div>
 {% endblock %}
