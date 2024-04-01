@@ -7,6 +7,7 @@ from django.db import models
 user_type = (('1', 'Клиент'), ('2', 'Фотограф'))
 default_bio = 'Задача организации, в особенности же перспективное планирование не даёт нам иного выбора, кроме определения переосмысления внешнеэкономических политик. Для современного мира синтетическое тестирование выявляет срочную потребность инновационных методов управления процессами. Являясь всего лишь частью общей картины, ключевые особенности структуры проекта набирают популярность среди определенных слоев населения, а значит, должны быть в равной степени предоставлены сами себе.'
 default_tech = 'Без Зеркальная камера EOS R5'
+reservation_status = (('1', 'Рассматривается'), ('2', 'Одобрена'), ('0', 'Отклонена'))
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -111,11 +112,12 @@ photosession_type = (('1', 'Портрет.'),
 
 
 class Reservation(models.Model):
-    email = models.CharField(max_length=256, blank=False, null=False, verbose_name='* Электронная почта')
+    email = models.CharField(max_length=256, blank=True, null=False, verbose_name='Электронная почта')
     description = models.TextField(blank=False, null=True, verbose_name='* Описание')
     phone_number = models.CharField(max_length=32, blank=True, null=True, validators=[RegexValidator('/^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d{3}?\d{3}$/')], verbose_name='Телефон')
     photograph_id = models.ForeignKey(Photographer, on_delete=models.CASCADE, blank=False, verbose_name='* Фотограф')
     photosession_type = models.CharField(max_length=64, blank=False, null=False, choices=(photosession_type), default='1', verbose_name='* Тип фотосессии')
+    status = models.CharField(max_length=16, choices=(reservation_status), blank=True, default='1', verbose_name='Статус')
 
     example = models.ImageField(blank=True, null=True, verbose_name='Примеры')
 

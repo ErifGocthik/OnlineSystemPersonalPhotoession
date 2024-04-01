@@ -44,23 +44,40 @@
             $('.modal-background').css({'display': 'none'});
             $('.modal-window').find('textarea').val('');
         });
-       $('.btn-input').click(function (e) {
-           e.preventDefault();
-           let answer = $('.modal-window').find('textarea').val();
-           $.ajax({
-               url: `/main/setanswer/${id}/`,
-               type: 'post',
-               dataType: 'json',
-               data: {answer: answer, id: id, 'csrfmiddlewaretoken': csrfToken},
-               success: function (data) {
-                   // console.log(data);
-                   $('.modal-background').css({'display': 'none'});
-               },
-               error: function (data) {
-                   alert('Что-то пошло не так пожалуйста перезагрузите страницу');
-               }
-           })
+        $('.btn-input-reject').click(function (e) {
+            e.preventDefault();
+            let answer = $('.modal-window').find('textarea').val();
+            $.ajax({
+                url: `/main/setanswer/${id}/`,
+                type: 'post',
+                dataType: 'json',
+                data: {answer: answer, id: id, 'csrfmiddlewaretoken': csrfToken, 'status': 'reject'},
+                success: function (data) {
+                    // console.log(data);
+                    $('.modal-background').css({'display': 'none'});
+                },
+                error: function (data) {
+                    alert('Что-то пошло не так пожалуйста перезагрузите страницу');
+                }
+            })
+        });
+        $('.btn-input').click(function (e) {
+            e.preventDefault();
+            let answer = $('.modal-window').find('textarea').val();
+            $.ajax({
+                url: `/main/setanswer/${id}/`,
+                type: 'post',
+                dataType: 'json',
+                data: {answer: answer, id: id, 'csrfmiddlewaretoken': csrfToken, 'status': 'accept'},
+                success: function (data) {
+                    // console.log(data);
+                    $('.modal-background').css({'display': 'none'});
+                },
+                error: function (data) {
+                    alert('Что-то пошло не так пожалуйста перезагрузите страницу');
+                }
+            })
 
-       })
+        })
     });
 })();

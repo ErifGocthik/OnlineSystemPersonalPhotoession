@@ -54,6 +54,8 @@ class ReservationCreateView(CreateView):
         return {'reservation': reservation, 'form': form}
 
     def get(self, request, *args, **kwargs):
+        if not (self.request.user.is_authenticated):
+            return redirect(reverse_lazy('auth:login'))
         return render(self.request, self.template_name, self.get_context_data())
 
     def post(self, request, *args, **kwargs):
@@ -65,19 +67,13 @@ class ReservationCreateView(CreateView):
         return self.form_invalid(form)
 
     def form_valid(self, form):
-        reservation = form.save()
-        if self.email_is_valid(reservation.email):
-            return redirect(reverse_lazy('main:main'))
-        return redirect(reverse_lazy('main:reservation'))
+        reservation = form.save(commit=False)
+        reservation.email = self.request.user.email
+        reservation.save()
+        return redirect(reverse_lazy('main:main'))
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
-
-    def email_is_valid(self, email):
-        self_email = self.request.user.email
-        if self_email == email:
-            return True
-        return False
 
 
 class GetAnswer(DetailView):
@@ -97,6 +93,11 @@ class GetAnswer(DetailView):
 
     def post(self, request, *args, **kwargs):
         user = CustomUser.objects.filter(email=self.get_context_data().get('email'))
+        reservation = self.model
+        if self.request.POST.get('status') == 'accept':
+            reservation.status = '2'
+        else:
+            reservation.status = '0'
         headers = {'Для': '{} <{}>'.format(user.model.username, user.model.email)}
         send_mail('Ответ на заявку', self.request.POST.get('answer'), settings.EMAIL_HOST_USER, [self.get_context_data().get('email')], headers)
         return JsonResponse(self.get_context_data())
