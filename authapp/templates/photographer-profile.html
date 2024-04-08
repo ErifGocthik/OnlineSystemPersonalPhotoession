@@ -1,0 +1,41 @@
+{% extends 'root.html' %}
+{% block content %}
+    <div class="ph-profile">
+        <div class="ph-img" style="background-image:linear-gradient(-90deg, white 20%, rgba(0,0,0,0) 75%) ,url('{{ photographer.photo.url }}')">
+        </div>
+        <h1 style="margin-left: 2%">{{ photographer.user_id.username }}</h1>
+{#            {% for i in work_days %}#}
+{#                <p>{{ i }}</p>#}
+{#            {% endfor %}#}
+            <div class="info">
+                <p style="font-size: 20px">{{ photographer.user_id.name }} {{ photographer.user_id.surname }}</p>
+                <p>Биография: {{ photographer.bio }}</p>
+                <p>Техника: <span>{{ photographer.tech }}</span></p>
+            {% if photographer.work_days != '0' %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">ДНИ</th>
+                            <th scope="col">ВРЕМЯ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for day in work_days %}
+                            <tr>
+                                <td>{{ day }}</td>
+                                <td>
+                                    {% if day == 'Суббота' or day == 'Воскресенье' %}
+                                        9:00 - 18:00
+                                    {% else %}
+                                        8:00 - 20:00
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            <a href="{% url 'main:reservation' pk=photographer.pk %}" class="btn-photograph" style="padding: 10px 45px; font-size: 24px; margin: 15px 15px">Забронировать</a>
+            </div>
+    </div>
+{% endblock %}

@@ -2,6 +2,7 @@
 {% load static %}
 {% block js %}
     <script src="{% static 'js/tableHref.js' %}"></script>
+    <script src="{% static 'js/tableChange.js' %}"></script>
 {% endblock %}
 {% block content %}
     <div class="profile">
@@ -11,11 +12,14 @@
             <p class="profile-name">Имя: <span>{{ user.name }}</span></p>
             <p class="profile-surname">Фамилия: <span>{{ user.surname }}</span></p>
             <a href="mailto:{{ user.email }}">Электронная почта: <span>{{ user.email }}</span></a>
-            <p class="user_type">Вы: <span>{{ user.get_user_type_display }}</span></p>
+            {% if user.user_type == '2' %}
+            <p class="photo-profile"><a href="{% url 'main:change-profile' pk=photographer_profile.pk %}">Редактировать профиль</a></p>
+            {% endif %}
+            <p style="{% if user.user_type == '2' %}margin-top: 25px;{% else %}margin-top: 50px;{% endif %}">Вы: <span>{{ user.get_user_type_display }}</span></p>
         </div>
     </div>
     <div class="user_reviews">
-        <h1>Ваши запросы</h1>
+        <h1>{% if user.user_type == '2' %}<a href="#" class="btn-change"> ◀ </a>{% endif %} <span>Ваши запросы</span> {% if user.user_type == '2' %}<a href="#" class="btn-change"> ▶ </a>{% endif %}</h1>
         <table>
             <thead>
                 <tr>
@@ -28,6 +32,36 @@
             </thead>
             <tbody>
                 {% for reserv in reservation %}
+                    <tr class="tr-hover id-{{ reserv.pk }}">
+                        <th scope="row">{{ reserv.pk }}</th>
+                        <td>{{ reserv.description }}</td>
+                        <td>
+                            {% if reserv.phone_number == None %}
+                                <p style="opacity: 50%">Не указан</p>
+                            {% else %}
+                                <p>{{ reserv.phone_number }}</p>
+                            {% endif %}
+                        </td>
+                        <td class="email">
+                            {{ reserv.email }}
+                        </td>
+                        <td>{{ reserv.get_photosession_type_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <table class="visible">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Номер телефона</th>
+                    <th scope="col">Электронная почта</th>
+                    <th scope="col">Тип фотосессии</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserv in self_reservation %}
                     <tr class="tr-hover id-{{ reserv.pk }}">
                         <th scope="row">{{ reserv.pk }}</th>
                         <td>{{ reserv.description }}</td>

@@ -1,0 +1,12 @@
+{% extends 'root.html' %}
+{% load static %}
+{% block js %}
+    <script src="{% static 'js/masonry.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="grid gallery">
+        {% for image in images %}
+            <img src="{{ image }}" class="grid-item" alt="">
+        {% endfor %}
+    </div>
+{% endblock %}

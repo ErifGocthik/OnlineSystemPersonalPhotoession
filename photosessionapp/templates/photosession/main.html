@@ -33,6 +33,7 @@
                         <h2>{{ pg.user_id.name }} {{ pg.user_id.surname }}</h2>
                         <p>Техника: <span>{{ pg.tech }}</span></p>
                         <p>{{ pg.bio|truncatewords_html:17 }}</p>
+                        <a href="{% url 'main:reservation' pk=pg.pk %}" class="btn-photograph">Забронировать</a>
                     </div>
                 </div>
             {% endfor %}
@@ -42,7 +43,7 @@
         <h1>Закажите свою собственную фотосессию!</h1>
         <div class="card">
             <h2>Вы можете выбрать <span>тип фотосессии</span> и <span>фотографа</span> по вашему желанию</h2>
-            <a href="{% url 'main:reservation' %}">Забронировать</a>
+            <a href="{% url 'main:photographer' %}">Забронировать</a>
         </div>
     </div>
     <div class="types" style="background-image: url('{% static 'images/background_03.jpg' %}')">
@@ -97,7 +98,7 @@
             </div>
             <div class="slide">
                 <img src="{% static 'images/niyu.png' %}" alt="">
-                <h1>Стиль "ню</h1>
+                <h1>Стиль "ню"</h1>
             </div>
         </div>
     </div>

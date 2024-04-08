@@ -8,6 +8,8 @@ user_type = (('1', 'Клиент'), ('2', 'Фотограф'))
 default_bio = 'Задача организации, в особенности же перспективное планирование не даёт нам иного выбора, кроме определения переосмысления внешнеэкономических политик. Для современного мира синтетическое тестирование выявляет срочную потребность инновационных методов управления процессами. Являясь всего лишь частью общей картины, ключевые особенности структуры проекта набирают популярность среди определенных слоев населения, а значит, должны быть в равной степени предоставлены сами себе.'
 default_tech = 'Без Зеркальная камера EOS R5'
 reservation_status = (('1', 'Рассматривается'), ('2', 'Одобрена'), ('0', 'Отклонена'))
+schedule = [('Понедельник', "понедельник"), ("Вторник", "вторник"), ("Среда", "среда"),
+            ("Четверг", "четверг"), ("Пятница", "пятница"), ('Суббота', "суббота"), ("Воскресенье", "воскресенье")]
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -38,6 +40,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=256, blank=False, null=False, unique=True, verbose_name='Имя Пользователя')
     email = models.EmailField(blank=False, null=False, unique=True, validators=[EmailValidator], verbose_name='Электронная почта')
     name = models.CharField(max_length=256, blank=False, null=False, verbose_name='Имя')
+    phone_number = models.CharField(max_length=256, blank=True, null=True, verbose_name='Номер телефона')
     surname = models.CharField(max_length=256, blank=False, null=False, verbose_name='Фамилия')
     password = models.CharField(max_length=256, blank=False, null=False, validators=[MinLengthValidator(8, "Пароль должен быть не меньше 8 символов"),
                                                                                      MaxLengthValidator(256, "Пароль должен быть не более 256 символов")])
@@ -75,9 +78,10 @@ class CustomUser(AbstractUser):
 
 class Photographer(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=False, verbose_name='Пользователь')
-    photo = models.ImageField(blank=True, null=True, upload_to='%Y/%m/%d/', default='default/default_profile_image.png', verbose_name='Фотография')
+    photo = models.ImageField(blank=True, null=True, upload_to='images', default='default/default_profile_image.png', verbose_name='Фотография')
     bio = models.TextField(blank=True, null=True, default=default_bio, verbose_name='Биография')
     tech = models.CharField(max_length=256, blank=True, null=True, default=default_tech, verbose_name='Техника')
+    work_days = models.CharField(max_length=128, verbose_name='Рабочие дни')
 
     def clearUsername(self):
         return self.user_id.username
@@ -87,12 +91,12 @@ class Photographer(models.Model):
 
 
 class Review(models.Model):
-    user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=False, verbose_name='Пользователь')
+    user_id = models.ForeignKey(Photographer, on_delete=models.CASCADE, blank=False, verbose_name='Пользователь')
     text_content = models.TextField(blank=False, null=False, verbose_name='Текст')
     likes = models.IntegerField(default=0, verbose_name='Лайки')
 
     def Username(self):
-        return self.user_id.username
+        return self.user_id.user_id.username
 
 
 photosession_type = (('1', 'Портрет.'),

@@ -1,7 +1,7 @@
 from django import forms
-from django.forms import TextInput
+from django.forms import TextInput, ModelForm
 
-from photosessionapp.models import Reservation
+from photosessionapp.models import Reservation, Photographer
 
 
 class ReservationCreateForm(forms.ModelForm, forms.Form):
@@ -9,6 +9,40 @@ class ReservationCreateForm(forms.ModelForm, forms.Form):
         model = Reservation
         widgets = {
             'description': TextInput(attrs={'placeholder': 'Предпочтения'}),
-            'phone_number': TextInput(attrs={'placeholder': '7(999) 999-99-99'})
         }
-        exclude = ['id', 'email', 'status']
+        exclude = ['id', 'email', 'status', 'photograph_id', 'phone_number']
+
+
+class PhotographersCreateForm(forms.ModelForm, forms.Form):
+
+    SHEDULE = [('Понедельник', "понедельник"), ("Вторник", "вторник"), ("Среда", "среда"),
+            ("Четверг", "четверг"), ("Пятница", "пятница"), ('Суббота', "суббота"), ("Воскресенье", "воскресенье")]
+
+    work_days = forms.MultipleChoiceField(
+        choices=SHEDULE,
+        initial='Понедельник',
+        widget=forms.SelectMultiple(),
+        required=True,
+        label='Рабочие дни'
+    )
+
+    class Meta:
+        model = Photographer
+        exclude = ['id']
+
+
+class PhotographerChangeForm(ModelForm):
+    SHEDULE = [('Понедельник', "понедельник"), ("Вторник", "вторник"), ("Среда", "среда"),
+               ("Четверг", "четверг"), ("Пятница", "пятница"), ('Суббота', "суббота"), ("Воскресенье", "воскресенье")]
+
+    work_days = forms.MultipleChoiceField(
+        choices=SHEDULE,
+        initial='Понедельник',
+        widget=forms.SelectMultiple(),
+        required=True,
+        label='Рабочие дни'
+    )
+
+    class Meta:
+        model = Photographer
+        exclude = ['id']

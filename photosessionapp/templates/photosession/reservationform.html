@@ -1,8 +1,5 @@
 {% extends 'root.html' %}
 {% load static %}
-{% block js %}
-{#    <script src="{% static 'js/notification.js' %}"></script>#}
-{% endblock %}
 {% block content %}
     <h2 class="notification">{{ notification }}</h2>
     <form action="." method="post" enctype="multipart/form-data" class="form-reservation">

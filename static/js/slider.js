@@ -3,8 +3,6 @@
         let slider = $('.slider');
         let sliders = slider.find('.slide');
         let lenght = slider.find('.slide').length;
-        let active_slide = slider.find('.slide')[0];
-        let next_slider = slider.find('.slide')[1];
         let index = 0;
         slider.on('mousewheel DOMMouseScroll', function (e) {
             // if (e.originalEvent.wheelDelta > 0)

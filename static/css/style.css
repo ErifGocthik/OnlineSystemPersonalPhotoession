@@ -224,14 +224,24 @@ a
 .profile .profile-info a
 {
     margin: 5px 0;
-}
-.profile .profile-info .user_type
-{
-    margin-top: 50px;
+    width: 100%;
 }
 .profile .profile-info .user_type span
 {
     font-weight: 700;
+}
+.profile .profile-info .photo-profile
+{
+    transform: translateY(10px);
+}
+.profile .profile-info .photo-profile a
+{
+    background-color: black;
+    padding: 5px 10px;
+
+    border-radius: 5px;
+
+    color: white;
 }
 .photographer
 {
@@ -300,7 +310,7 @@ a
 }
 .photographer-cards .gr-border .photographer-card h2, p
 {
-    padding: 5px 15px;
+    padding: 5px 15px 10px 15px;
 }
 .photographer-cards .gr-border .photographer-card span
 {
@@ -355,6 +365,19 @@ a
     box-shadow: 0 0 50px inset rgba(0, 0, 0, 0.2);
 
     border-radius: 15px 15px 0 0;
+}
+.photographers .photo a
+{
+    width: 90%;
+    margin: 5%;
+
+    padding: 2.25% 7.5%;
+
+    background-color: black;
+
+    color: white;
+
+    border-radius: 10px;
 }
 .pages
 {
@@ -585,19 +608,43 @@ a
 }
 .user_reviews h1
 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 100%;
     margin: 0 0 25px 0;
 
     text-align: center;
 }
+.user_reviews h1 a
+{
+    margin: 5px;
+
+    color: white;
+    filter: drop-shadow(0 0 1px black);
+
+    transition: 160ms;
+}
+.user_reviews h1 a:hover
+{
+    color: black;
+    filter: drop-shadow(0 0 0);
+}
 .user_reviews table
 {
+    display: none;
+
     width: 75%;
 
     border-radius: 15px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
 
     overflow: hidden;
+}
+.user_reviews .visible
+{
+    display: table;
 }
 .user_reviews thead
 {
@@ -779,4 +826,168 @@ a
 {
     display: block!important;
     position: relative;
+}
+.form-photographer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 25%;
+    margin: 30px;
+    padding: 25px 0;
+
+    background-color: white;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.05));
+}
+.form-photographer h2
+{
+    text-align: center;
+}
+.form-photographer p label[for='id_email']:before
+{
+    content: '';
+    display: block;
+}
+.form-photographer p input[type='checkbox']
+{
+    width: 25px;!important;
+}
+.form-photographer p
+{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 90%;
+    margin: 0 5%;
+}
+.form-photographer p select
+{
+    width: 100%;
+
+    margin: 5px 0;
+    padding: 15px 20px 15px 20px;
+
+    font-size: 16px;
+
+    background-color: #f6f6f6;
+
+    border: none;
+    border-radius: 10px;
+}
+.form-photographer p select option
+{
+    padding: 15px 0;
+}
+.form-photographer p input
+{
+    width: 100%;
+
+    margin: 5px 0;
+    padding: 15px 20px;
+
+    font-size: 16px;
+
+    background-color: #f6f6f6;
+
+    border: none;
+    border-radius: 10px;
+}
+.form-photographer p textarea
+{
+    width: 100%;
+
+    margin: 5px 0;
+    padding: 15px 20px;
+
+    font-size: 16px;
+
+    background-color: #f6f6f6;
+
+    border: none;
+    border-radius: 10px;
+}
+.form-photographer input[type='submit']
+{
+    background: #1f1f1f radial-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), black);
+    border: none;
+    border-radius: 10px;
+
+    margin: 10px 0 0 0;
+    padding: 10px 50px;
+
+    font-size: 16px;
+
+    color: white;
+    transition: 100ms;
+}
+.form-photographer input[type='submit']:hover
+{
+    filter: brightness(150%);
+}
+.ph-profile
+{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 5% 95%;
+    grid-template-areas:
+    'phi txt'
+    'phi txt'
+;
+    grid-gap: 15px;
+
+    /*border: 1px solid black;*/
+    border-radius: 50px;
+    overflow: hidden;
+    margin: 2%;
+
+    width: 85%;
+    height: 80vh;
+}
+.ph-profile .ph-img
+{
+    grid-area: phi;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: #6f94c6;
+    background-position: center;
+    background-size: 150%;
+    background-repeat: no-repeat;
+}
+.ph-profile .info table
+{
+    border-collapse: collapse;
+    margin: 2% 2% 5% 2%;
+}
+.ph-profile .info table thead
+{
+    background-color: black;
+    color: white;
+}
+.ph-profile .info table tbody tr:nth-child(even)
+{
+    background-color: #d7d7d7;
+}
+.btn-photograph
+{
+    background: #1f1f1f radial-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), black);
+    border: none;
+    border-radius: 10px;
+
+    margin: 25px 0 0 15px;
+    padding: 5px 40px;
+
+    font-size: 16px;
+
+    color: white;
+    transition: 100ms;
+}
+.grid-item
+{
+    width: 33%;
+    margin: 0.05%;
 }

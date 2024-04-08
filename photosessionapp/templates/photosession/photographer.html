@@ -5,6 +5,7 @@
             <div class="photo">
                 <div class="photo-img" style="background-image: linear-gradient(45deg, rgba(0,0,0,0), rgba(255,255,255,0.38), rgba(0,0,0,0) 60%),url({{ photograph.photo.url }})"></div>
                 <h2>{{ photograph.user_id.name }} {{ photograph.user_id.surname }}</h2>
+                <a href="{% url 'main:photo-profile' pk=photograph.pk %}">Подробнее...</a>
             </div>
         {% endfor %}
     </div>
